@@ -12,11 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Userを10件作成し、UserをEachで繰り返す
+        \App\Models\User::factory(2)->create()->each(function ($user){
+            // Eventの作成時にUser_idに作成したユーザーIDを渡す
+            \App\Models\Event::factory(10)
+                ->create(['user_id' => $user->id]);
+        });
     }
 }
