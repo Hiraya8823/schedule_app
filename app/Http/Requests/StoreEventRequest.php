@@ -11,7 +11,7 @@ class StoreEventRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,5 +24,15 @@ class StoreEventRequest extends FormRequest
         return [
             //
         ];
+    }
+
+    protected function prepareForValidation()
+    {
+        $start = ($this->filled(['start_date', 'start_time'])) ? $this->start_date . ' ' . $this->start_time : '';
+        $end = ($this->filled(['end_date', 'end_time'])) ? $this->end_date . ' ' . $this->end_time : '';
+        $this->merge([
+            'start' => $start,
+            'end' => $end,
+        ]);
     }
 }
