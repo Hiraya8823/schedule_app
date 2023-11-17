@@ -26,8 +26,8 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/', [EventController::class, 'index'])
-        ->name('roote');
+        ->name('root');
 
     // CRUD
-    Route::resource('events', EventCollector::class);
+    Route::resource('events', EventController::class);
 });
