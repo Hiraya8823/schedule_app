@@ -10,6 +10,7 @@
                     {{ __('Event Start') }}
                 </label>
                 <div class="shadow appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight">
+                    <p>{{ $event->start }}</p>
                 </div>
             </div>
             <div class="my-4 text-slate-500 text-lg leading-relaxed">
@@ -17,6 +18,7 @@
                     {{ __('Event End') }}
                 </label>
                 <div class="shadow appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight">
+                    <p>{{ $event->end }}</p>
                 </div>
             </div>
             <div class="my-4 text-slate-500 text-lg leading-relaxed">
@@ -24,6 +26,7 @@
                     {{ __('Event Name') }}
                 </label>
                 <div class="shadow appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight">
+                    <p>{{ $event->title }}</p>
                 </div>
             </div>
             <div class="my-4 text-slate-500 text-lg leading-relaxed mb-2">
@@ -31,6 +34,7 @@
                     {{ __('Description') }}
                 </label>
                 <p class="shadow appearance-none border rounded w-auto py-2 px-3 text-gray-700 leading-tight">
+                    {{ $event->body }}
                 </p>
             </div>
             <div class="flex flex-row text-center my-4">
@@ -38,11 +42,11 @@
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-20 mr-2">
                     {{ __('Go back') }}
                 </a>
-                <a href=""
+                <a href="{{ route('events.edit', $event) }}"
                     class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-20 mr-2">
                     {{ __('Edit') }}
                 </a>
-                <form action="" method="post">
+                <form action="{{ route('events.destroy', $event) }}" method="post">
                     @csrf
                     @method('DELETE')
                     <input type="submit" value="{{ __('Delete') }}" onclick="if(!confirm('削除しますか？')){return false};"

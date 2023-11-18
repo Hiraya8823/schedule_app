@@ -13,7 +13,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('events.index');
+        $events = Event::all();
+
+        return view('events.index', compact('events'));
     }
 
     /**
@@ -29,23 +31,39 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        $event = new Event();
+
+        $event->user_id = $request->user()->id;
+        $event->title = $request->title;
+        $event->body = $request->body;
+        $event->start = $request->start;
+        $event->end = $request->end;
+        
+        $event->save();
+
+        return redirect()->route('events.index');
+
+        
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(string $id)
     {
-        //
+        $event = Event::find($id);
+
+        return view('events.show', compact('event'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Event $event)
+    public function edit(string $id)
     {
-        //
+        $event = Event::find($id);
+
+        return view('events.edit', compact('event'));
     }
 
     /**
@@ -53,7 +71,15 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+        $event->user_id = $request->user()->id;
+        $event->title = $request->title;
+        $event->body = $request->body;
+        $event->start = $request->start;
+        $event->end = $request->end;
+        
+        $event->save();
+
+        return redirect()->route('events.index');
     }
 
     /**
@@ -61,6 +87,8 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->delete();
+
+        return redirect()->route('events.index');
     }
 }
