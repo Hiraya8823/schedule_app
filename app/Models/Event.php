@@ -29,7 +29,7 @@ class Event extends Model
 
     public function getEndDateAttribute()
     {
-        return (new Carbon($this->end))->toDateSting();
+        return (new Carbon($this->end))->toDateString();
     }
 
     public function getEndTimeAttribute()
