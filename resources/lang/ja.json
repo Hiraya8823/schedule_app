@@ -763,5 +763,9 @@
     ,"Event End": "終了日時"
     ,"Event Name": "タイトル"
     ,"Description": "詳細"
-
+    ,"Start": "開始日時"
+    ,"End": "終了日時"
+    ,"Title": "タイトル"
+    ,"Body": "詳細"
+    ,"Yesterday": "昨日"
 }

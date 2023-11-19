@@ -132,5 +132,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'start'                    => '開始日時',
+        'end'                      => '終了日時',
     ],
 ];

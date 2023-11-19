@@ -22,7 +22,10 @@ class StoreEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:50',
+            'body' => 'required|string|max:200',
+            'start' => 'required', //startが今日以降の日付かどうかチェック
+            'end' => 'required|after:start', //finishがstart_dateより後の日付かどうかをチェック
         ];
     }
 
@@ -34,5 +37,16 @@ class StoreEventRequest extends FormRequest
             'start' => $start,
             'end' => $end,
         ]);
+    }
+
+    public function attributes()
+    {
+        return [
+            'body'  => '詳細',
+            'title' => 'タイトル',
+            'body' => '詳細',
+            'start' => '開始日時',
+            'end' => '終了日時'
+        ];
     }
 }

@@ -5,16 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
+    public function __construct()
+    {
+        // アクションに合わせたPolicyの目剃っで認可されていないユーザーはエラーを投げる
+        $this->authorizeResource(Event::class, 'event');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $events = Event::all();
-
+        $events = Auth::user()->events;
         return view('events.index', compact('events'));
     }
 
@@ -33,15 +38,14 @@ class EventController extends Controller
     {
         $event = new Event();
 
+        $event = new Event($request->all());
         $event->user_id = $request->user()->id;
-        $event->title = $request->title;
-        $event->body = $request->body;
-        $event->start = $request->start;
-        $event->end = $request->end;
-        
+
         $event->save();
 
-        return redirect()->route('events.index');
+        return redirect()
+            ->route('events.show', $event)
+            ->with('notice', '予定を登録しました');
 
         
     }
@@ -79,7 +83,9 @@ class EventController extends Controller
         
         $event->save();
 
-        return redirect()->route('events.index');
+        return redirect()
+            ->route('events.show', compact('event'))
+            ->with('notice', '予定を更新しました');
     }
 
     /**
@@ -89,6 +95,7 @@ class EventController extends Controller
     {
         $event->delete();
 
-        return redirect()->route('events.index');
+        return redirect()->route('events.index')
+            ->with('notice', '予定を削除しました');
     }
 }

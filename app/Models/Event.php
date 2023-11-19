@@ -10,6 +10,18 @@ class Event extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'body',
+        'start',
+        'end'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function start_diff()
     {
         return (new Carbon($this->start))->diffForHumans();

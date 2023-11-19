@@ -22,7 +22,10 @@ class UpdateEventRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:50',
+            'body' => 'required|string|max:200',
+            'start' => 'required|date|after:yesterday', //startが今日以降の日付かどうかチェック
+            'end' => 'required|date|after:start', //finishがstart_dateより後の日付かどうかをチェック
         ];
     }
 
